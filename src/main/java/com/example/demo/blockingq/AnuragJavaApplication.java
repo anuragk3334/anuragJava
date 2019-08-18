@@ -1,4 +1,7 @@
-package com.example.demo;
+package com.example.demo.blockingq;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +16,11 @@ public class AnuragJavaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
+		BlockingQueue<Message> q=new ArrayBlockingQueue(15);
+		Producer producer=new Producer(q);
+		Consumer consumer=new Consumer(q);
+		new Thread(producer).start();
+		new Thread(consumer).start();
 		
 	}
 
